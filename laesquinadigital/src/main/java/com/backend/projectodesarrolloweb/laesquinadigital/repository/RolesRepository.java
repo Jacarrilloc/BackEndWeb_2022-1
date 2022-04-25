@@ -1,11 +1,11 @@
 package com.backend.projectodesarrolloweb.laesquinadigital.repository;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Role;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Roles;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long>{
+public interface RolesRepository extends JpaRepository<Roles, Long>{
     
 }

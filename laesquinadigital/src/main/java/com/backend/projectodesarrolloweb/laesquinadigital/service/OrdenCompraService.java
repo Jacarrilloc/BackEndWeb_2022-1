@@ -2,12 +2,12 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.PurchaseOrder;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.PurchaseOrderRepository;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.UserRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.OrdenCompra;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompra;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.UsuarioSys;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.OrdenCompraRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.UsusarioRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.util.PurchaseOrderNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +16,18 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PurchaseOrderService implements IPurchaseOrderService {
+public class OrdenCompraService implements IOrdenCompraService {
 
     @Autowired
-    private PurchaseOrderRepository repository;
+    private OrdenCompraRepository repository;
 
     @Autowired
-    private UserRepository uRepository;
+    private UsusarioRepository uRepository;
 
     @Override
     public void deletePurchaseOrder(Long id) {
 
-        Optional<PurchaseOrder> user = repository.findById(id);
+        Optional<OrdenCompra> user = repository.findById(id);
         
         if(user.isPresent()){
             repository.delete(user.get());
@@ -38,7 +38,7 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     @Override
-    public PurchaseOrder updateOrder(PurchaseOrder order, Long id) {
+    public OrdenCompra updateOrder(OrdenCompra order, Long id) {
         
         return repository.findById(id).map(provider ->{
 
@@ -51,16 +51,16 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     @Override
-    public PurchaseOrder getOrderById(Long id) {
+    public OrdenCompra getOrderById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new PurchaseOrderNotFoundException(id));
 
     }
 
     @Override
-    public PurchaseOrder createOrder(PurchaseOrder order, Long id) {
+    public OrdenCompra createOrder(OrdenCompra order, Long id) {
 
-        PurchaseOrder order2 = new PurchaseOrder();
+        OrdenCompra order2 = new OrdenCompra();
         order2.setPurchaseDate(order.getPurchaseDate());
         order2.setCustomer(uRepository.getById(id));
         order2.setCart(order.getCart());
@@ -70,18 +70,18 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     @Override
-    public Page<PurchaseOrder> getOrders(Pageable pageable) {
+    public Page<OrdenCompra> getOrders(Pageable pageable) {
         
         return repository.findAll(pageable);
     
     }
     
 
-    public Double calcFinalPrice(ShoppingCart shoppingCart){
+    public Double calcFinalPrice(CarritoCompra carritoCompra){
         
         Double finalprice = 0d;
 
-        for(Product p: shoppingCart.getProducts()){
+        for(Producto p: carritoCompra.getProducts()){
             finalprice+=p.getPrice();
         }
 
@@ -90,9 +90,9 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
 
     @Override
-    public Page<PurchaseOrder> getOrdersPerUser(Long id, Pageable pageable) {
+    public Page<OrdenCompra> getOrdersPerUser(Long id, Pageable pageable) {
 
-        UserSys user = uRepository.getById(id);
+        UsuarioSys user = uRepository.getById(id);
         return repository.findByCustomer(user, pageable);
     }
 }

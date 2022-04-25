@@ -4,9 +4,9 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.RoleRepository;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.UserRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.UsuarioSys;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.RolesRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.UsusarioRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.util.UserNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UsersService implements IUsersService {
+public class UsuarioService implements IUsuarioService {
 
     @Autowired
-    private RoleRepository roleRepository;
+    private RolesRepository rolesRepository;
 
     @Autowired
-    private UserRepository repository;
+    private UsusarioRepository repository;
 
     @Autowired
     PasswordEncoder passwordEncoder;
@@ -30,7 +30,7 @@ public class UsersService implements IUsersService {
     @Override
     public void deleteUser(Long id) {
 
-        Optional<UserSys> user = repository.findById(id);
+        Optional<UsuarioSys> user = repository.findById(id);
 
         if(user.isPresent()){
             repository.delete(user.get());
@@ -41,17 +41,17 @@ public class UsersService implements IUsersService {
     }
 
     @Override
-    public UserSys getUserById(Long id) {
+    public UsuarioSys getUserById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new UserNotFoundException(id));
     
     }
 
     @Override
-    public UserSys createUser(UserSys user) {
+    public UsuarioSys createUser(UsuarioSys user) {
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRol(roleRepository.getById(2l));
+        user.setRol(rolesRepository.getById(2l));
         user.setCarts(new ArrayList<>());
         user.setOrders(new ArrayList<>());
         return repository.save(user);
@@ -59,7 +59,7 @@ public class UsersService implements IUsersService {
     }
     
     @Override
-    public UserSys updateUser(UserSys user, Long id) {
+    public UsuarioSys updateUser(UsuarioSys user, Long id) {
 
         return repository.findById(id).map(provider ->{
             provider.setFirstName(user.getFirstName());
@@ -76,14 +76,14 @@ public class UsersService implements IUsersService {
     }
 
     @Override
-    public Page<UserSys> getUsers(Pageable pageable) {
+    public Page<UsuarioSys> getUsers(Pageable pageable) {
 
         return repository.findAll(pageable);
 
     }
 
     @Override
-    public UserSys getUserInfo(String email) {
+    public UsuarioSys getUserInfo(String email) {
         return repository.findByEmail(email).orElseThrow(()-> new UserNotFoundException(email));
     }
         

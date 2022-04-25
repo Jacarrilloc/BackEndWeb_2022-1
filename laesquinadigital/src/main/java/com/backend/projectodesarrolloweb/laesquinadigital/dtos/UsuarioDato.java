@@ -2,7 +2,7 @@ package com.backend.projectodesarrolloweb.laesquinadigital.dtos;
 
 import java.util.Date;
 
-public class UserDTO {
+public class UsuarioDato {
     
     protected Long id;
 
@@ -18,16 +18,16 @@ public class UserDTO {
 
     protected RolesDato rol;
 
-    // protected List<PurchaseOrderDTO> orders;
+    // protected List<OrdenCompraDato> orders;
 
     // protected List<CarritoCompraDato> carts;
 
 
-    public UserDTO() {
+    public UsuarioDato() {
     }
 
 
-    public UserDTO(String firstName, String lastName, Date birthDate, String email, String password, RolesDato rol) {
+    public UsuarioDato(String firstName, String lastName, Date birthDate, String email, String password, RolesDato rol) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -95,12 +95,12 @@ public class UserDTO {
     }
 
 
-    // public List<PurchaseOrderDTO> getOrders() {
+    // public List<OrdenCompraDato> getOrders() {
     //     return orders;
     // }
 
 
-    // public void setOrders(List<PurchaseOrderDTO> orders) {
+    // public void setOrders(List<OrdenCompraDato> orders) {
     //     this.orders = orders;
     // }
 

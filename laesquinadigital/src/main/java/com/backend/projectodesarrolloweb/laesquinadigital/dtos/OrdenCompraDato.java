@@ -2,11 +2,11 @@ package com.backend.projectodesarrolloweb.laesquinadigital.dtos;
 
 import java.util.Date;
 
-public class PurchaseOrderDTO {
+public class OrdenCompraDato {
 
     protected Long id;
 
-    protected UserDTO customer;
+    protected UsuarioDato customer;
 
     protected Double finalPrice;
 
@@ -14,10 +14,10 @@ public class PurchaseOrderDTO {
 
     protected Date purchaseDate;
 
-    public PurchaseOrderDTO() {
+    public OrdenCompraDato() {
     }
 
-    public PurchaseOrderDTO(UserDTO customer, Double finalPrice, CarritoCompraDato cart, Date purchaseDate) {
+    public OrdenCompraDato(UsuarioDato customer, Double finalPrice, CarritoCompraDato cart, Date purchaseDate) {
         this.customer = customer;
         this.finalPrice = finalPrice;
         this.cart = cart;
@@ -48,11 +48,11 @@ public class PurchaseOrderDTO {
         this.purchaseDate = purchaseDate;
     }
 
-    public UserDTO getCustomer() {
+    public UsuarioDato getCustomer() {
         return customer;
     }
 
-    public void setCustomer(UserDTO customer) {
+    public void setCustomer(UsuarioDato customer) {
         this.customer = customer;
     }
 

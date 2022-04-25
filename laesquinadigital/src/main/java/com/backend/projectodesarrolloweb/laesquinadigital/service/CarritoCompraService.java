@@ -2,10 +2,10 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.ShoppingCartRepository;
-import com.backend.projectodesarrolloweb.laesquinadigital.repository.UserRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompra;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.UsuarioSys;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.CarritoCompraRepository;
+import com.backend.projectodesarrolloweb.laesquinadigital.repository.UsusarioRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.util.ShoppingCartNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,17 +14,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ShoppingCartService implements IShoppingCartService {
+public class CarritoCompraService implements ICarritoCompraService {
     
     @Autowired
-    private ShoppingCartRepository repository;
+    private CarritoCompraRepository repository;
     
     @Autowired
-    private UserRepository uRepository;
+    private UsusarioRepository uRepository;
 
     @Override
     public void deleteShoppingCart(Long id) {
-        Optional<ShoppingCart> user = repository.findById(id);
+        Optional<CarritoCompra> user = repository.findById(id);
         
         if(user.isPresent()){
             repository.delete(user.get());
@@ -34,7 +34,7 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public ShoppingCart updateShoppingCart(ShoppingCart cart, Long id) {
+    public CarritoCompra updateShoppingCart(CarritoCompra cart, Long id) {
         return repository.findById(id).map(provider ->{
 
             provider.setProducts(cart.getProducts());;
@@ -46,29 +46,29 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public ShoppingCart getShoppingCartById(Long id) {
+    public CarritoCompra getShoppingCartById(Long id) {
         return repository.findById(id).orElseThrow(()-> new ShoppingCartNotFoundException(id));
     }
 
     @Override
-    public ShoppingCart createShoppingCart(ShoppingCart shoppingCart, Long id) {
+    public CarritoCompra createShoppingCart(CarritoCompra carritoCompra, Long id) {
         
-        ShoppingCart cart = new ShoppingCart();
+        CarritoCompra cart = new CarritoCompra();
         cart.setUser(uRepository.getById(id));
-        cart.setProducts(shoppingCart.getProducts());
+        cart.setProducts(carritoCompra.getProducts());
 
         return repository.save(cart);
     }
 
     @Override
-    public Page<ShoppingCart> getCarts(Pageable pageable) {
+    public Page<CarritoCompra> getCarts(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     @Override
-    public Page<ShoppingCart> getCartsPerUser(Long id, Pageable pageable){
+    public Page<CarritoCompra> getCartsPerUser(Long id, Pageable pageable){
 
-        UserSys user = uRepository.getById(id);
+        UsuarioSys user = uRepository.getById(id);
 
         return repository.findByUser(user, pageable);
     }

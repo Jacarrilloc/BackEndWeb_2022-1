@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.UsuarioSys;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.security.authentication.AuthenticationManager;
@@ -37,7 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
             throws AuthenticationException {
                 try{
-                    UserSys credentials = new ObjectMapper().readValue(request.getInputStream(), UserSys.class);
+                    UsuarioSys credentials = new ObjectMapper().readValue(request.getInputStream(), UsuarioSys.class);
 
                     return authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(

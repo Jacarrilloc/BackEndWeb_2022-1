@@ -6,9 +6,9 @@ import java.util.List;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomer;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
-import com.backend.projectodesarrolloweb.laesquinadigital.dtos.PurchaseOrderDTO;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.PurchaseOrder;
-import com.backend.projectodesarrolloweb.laesquinadigital.service.IPurchaseOrderService;
+import com.backend.projectodesarrolloweb.laesquinadigital.dtos.OrdenCompraDato;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.OrdenCompra;
+import com.backend.projectodesarrolloweb.laesquinadigital.service.IOrdenCompraService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,27 +29,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("PurchaseOrders")
-public class PurchaseOrderRest {
+public class OrdenCompraRest {
     
     @Autowired
-    private IPurchaseOrderService purchaseOrderService;
+    private IOrdenCompraService ordenCompraService;
 
     @Autowired
     private ModelMapper mapper;
 
     @isCustomerOrAdmin
     @GetMapping("{page}/{size}")
-    public Page<PurchaseOrderDTO> getPurchaseOrders(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<OrdenCompraDato> getPurchaseOrders(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<PurchaseOrder> orders = purchaseOrderService.getOrders(pageable);
+        Page<OrdenCompra> orders = ordenCompraService.getOrders(pageable);
 
-        List<PurchaseOrderDTO> res = new ArrayList<>(); 
+        List<OrdenCompraDato> res = new ArrayList<>(); 
 
-        for (PurchaseOrder order : orders.getContent()){
+        for (OrdenCompra order : orders.getContent()){
 
-            res.add(mapper.map(order, PurchaseOrderDTO.class));
+            res.add(mapper.map(order, OrdenCompraDato.class));
 
         }
         return new PageImpl<>(res, pageable, res.size());
@@ -57,21 +57,21 @@ public class PurchaseOrderRest {
 
     @isCustomer
     @PostMapping(value = "create/{id}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE )
-    public PurchaseOrderDTO createPurchaseOrder(@RequestBody PurchaseOrderDTO dto,@PathVariable("id")Long id){
+    public OrdenCompraDato createPurchaseOrder(@RequestBody OrdenCompraDato dto,@PathVariable("id")Long id){
 
-        PurchaseOrder order = mapper.map(dto, PurchaseOrder.class);
+        OrdenCompra order = mapper.map(dto, OrdenCompra.class);
 
-        return mapper.map(purchaseOrderService.createOrder(order, id), PurchaseOrderDTO.class);
+        return mapper.map(ordenCompraService.createOrder(order, id), OrdenCompraDato.class);
 
     }
 
     @isAdmin
     @PutMapping(value = "actualizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public PurchaseOrderDTO uOrderDTO(@RequestBody PurchaseOrderDTO dto, @PathVariable Long id){
+    public OrdenCompraDato uOrderDTO(@RequestBody OrdenCompraDato dto, @PathVariable Long id){
 
-        PurchaseOrder order = mapper.map(dto, PurchaseOrder.class);
+        OrdenCompra order = mapper.map(dto, OrdenCompra.class);
 
-        purchaseOrderService.updateOrder(order, id);
+        ordenCompraService.updateOrder(order, id);
 
         return dto;
     }
@@ -79,23 +79,23 @@ public class PurchaseOrderRest {
     @isAdmin
     @DeleteMapping("delete/{id}")
     public void deleteOrder(@PathVariable Long id){
-        purchaseOrderService.deletePurchaseOrder(id);
+        ordenCompraService.deletePurchaseOrder(id);
     }
 
     @isCustomerOrAdmin
     @GetMapping("purchase/per/user/{id}/{page}/{size}")
-    public Page<PurchaseOrderDTO> purchasesPerUser(@PathVariable("id") Long id, @PathVariable("page") int page,
+    public Page<OrdenCompraDato> purchasesPerUser(@PathVariable("id") Long id, @PathVariable("page") int page,
     @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 
-        Page<PurchaseOrder> orders = purchaseOrderService.getOrdersPerUser(id, pageable);
+        Page<OrdenCompra> orders = ordenCompraService.getOrdersPerUser(id, pageable);
 
-        List<PurchaseOrderDTO> res = new ArrayList<>();
+        List<OrdenCompraDato> res = new ArrayList<>();
 
-        for (PurchaseOrder order : orders.getContent()) {
+        for (OrdenCompra order : orders.getContent()) {
 
-            res.add(mapper.map(order, PurchaseOrderDTO.class));
+            res.add(mapper.map(order, OrdenCompraDato.class));
 
         }
 

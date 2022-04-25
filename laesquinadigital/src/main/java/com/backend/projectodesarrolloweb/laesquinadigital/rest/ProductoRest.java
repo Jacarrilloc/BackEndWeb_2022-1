@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ProductoDato;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
-import com.backend.projectodesarrolloweb.laesquinadigital.service.IProductService;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
+import com.backend.projectodesarrolloweb.laesquinadigital.service.IProductoService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,21 +27,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("productos")
 @isAdmin
-public class ProductRest {
+public class ProductoRest {
 
     @Autowired
-    private IProductService productService;
+    private IProductoService productoService;
 
     @Autowired
     private ModelMapper mapper;
 
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProductoDato createProdct(@RequestBody ProductoDato dto){
-        Product product = mapper.map(dto, Product.class);
+        Producto producto = mapper.map(dto, Producto.class);
 
-        return  mapper.map(productService.createProduct(product), ProductoDato.class);
+        return  mapper.map(productoService.createProduct(producto), ProductoDato.class);
     }
 
     @isCustomerOrAdmin
@@ -50,13 +50,13 @@ public class ProductRest {
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<Product> products = productService.getProducts(pageable);
+        Page<Producto> productos = productoService.getProducts(pageable);
 
         List<ProductoDato> res = new ArrayList<>(); 
 
-        for (Product product: products.getContent()){
+        for (Producto producto: productos.getContent()){
 
-            res.add(mapper.map(product, ProductoDato.class));
+            res.add(mapper.map(producto, ProductoDato.class));
             
         }
         return new PageImpl<>(res, pageable, res.size());
@@ -65,9 +65,9 @@ public class ProductRest {
     @PutMapping(value = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProductoDato updateProduct(@RequestBody ProductoDato dto, @PathVariable Long id){
 
-        Product product = mapper.map(dto, Product.class);
+        Producto producto = mapper.map(dto, Producto.class);
 
-        productService.updateProduct(product, id);
+        productoService.updateProduct(producto, id);
 
         return dto;
     }
@@ -75,7 +75,7 @@ public class ProductRest {
     @DeleteMapping("delete/{id}")
     public void deleteProduct(@PathVariable Long id){
 
-        productService.deleteProduct(id);
+        productoService.deleteProduct(id);
     }
 
 }

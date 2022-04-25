@@ -5,9 +5,9 @@ import java.util.List;
 
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
-import com.backend.projectodesarrolloweb.laesquinadigital.dtos.UserDTO;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
-import com.backend.projectodesarrolloweb.laesquinadigital.service.IUsersService;
+import com.backend.projectodesarrolloweb.laesquinadigital.dtos.UsuarioDato;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.UsuarioSys;
+import com.backend.projectodesarrolloweb.laesquinadigital.service.IUsuarioService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,42 +29,42 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("Users")
-public class UserRest {
+public class UsuarioRest {
     
     @Autowired
-    private IUsersService usersService;
+    private IUsuarioService usuarioService;
 
     @Autowired
     private ModelMapper mapper;
 
     @isCustomerOrAdmin
     @GetMapping("info")
-    public UserDTO getInfo(@RequestParam(name="email") String email){
+    public UsuarioDato getInfo(@RequestParam(name="email") String email){
 
-        return mapper.map(usersService.getUserInfo(email), UserDTO.class);
+        return mapper.map(usuarioService.getUserInfo(email), UsuarioDato.class);
     }
     
     
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO createUser(@RequestBody UserDTO dto){
-        UserSys user = mapper.map(dto, UserSys.class);
+    public UsuarioDato createUser(@RequestBody UsuarioDato dto){
+        UsuarioSys user = mapper.map(dto, UsuarioSys.class);
 
-        return  mapper.map(usersService.createUser(user), UserDTO.class);
+        return  mapper.map(usuarioService.createUser(user), UsuarioDato.class);
     }
 
     @isAdmin
     @GetMapping("{page}/{size}")
-    public Page<UserDTO> getUsers(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<UsuarioDato> getUsers(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<UserSys> users = usersService.getUsers(pageable);
+        Page<UsuarioSys> users = usuarioService.getUsers(pageable);
 
-        List<UserDTO> res = new ArrayList<>(); 
+        List<UsuarioDato> res = new ArrayList<>(); 
 
-        for (UserSys user : users.getContent()){
+        for (UsuarioSys user : users.getContent()){
 
-            res.add(mapper.map(user, UserDTO.class));
+            res.add(mapper.map(user, UsuarioDato.class));
             
         }
         return new PageImpl<>(res, pageable, res.size());
@@ -72,11 +72,11 @@ public class UserRest {
 
     @isAdmin
     @PutMapping(value = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public UserDTO updateUser(@RequestBody UserDTO dto, @PathVariable Long id){
+    public UsuarioDato updateUser(@RequestBody UsuarioDato dto, @PathVariable Long id){
 
-        UserSys user = mapper.map(dto, UserSys.class);
+        UsuarioSys user = mapper.map(dto, UsuarioSys.class);
 
-        usersService.updateUser(user, id);
+        usuarioService.updateUser(user, id);
 
         return dto;
     }
@@ -85,6 +85,6 @@ public class UserRest {
     @DeleteMapping("delete/{id}")
     public void deleteUser(@PathVariable Long id){
 
-        usersService.deleteUser(id);
+        usuarioService.deleteUser(id);
     }
 }

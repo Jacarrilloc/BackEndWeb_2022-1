@@ -6,14 +6,14 @@ public class CarritoCompraDato {
     
     protected Long id;
 
-    protected UserDTO user;
+    protected UsuarioDato user;
 
     protected List<ProductoDato> products;
 
     public CarritoCompraDato() {
     }
 
-    public CarritoCompraDato(Long id, UserDTO user) {
+    public CarritoCompraDato(Long id, UsuarioDato user) {
         this.id = id;
         this.user = user;
     }
@@ -26,11 +26,11 @@ public class CarritoCompraDato {
         this.id = id;
     }
 
-    public UserDTO getUser() {
+    public UsuarioDato getUser() {
         return user;
     }
 
-    public void setUser(UserDTO user) {
+    public void setUser(UsuarioDato user) {
         this.user = user;
     }
 

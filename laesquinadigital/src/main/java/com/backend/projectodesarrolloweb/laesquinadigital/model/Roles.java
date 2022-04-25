@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Role {
+public class Roles {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,7 +22,7 @@ public class Role {
     protected String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "rol")
-    protected List<UserSys> users;
+    protected List<UsuarioSys> users;
 
     public Long getId() {
         return id;
@@ -40,11 +40,11 @@ public class Role {
         this.name = name;
     }
 
-    public List<UserSys> getUsers() {
+    public List<UsuarioSys> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UserSys> users) {
+    public void setUsers(List<UsuarioSys> users) {
         this.users = users;
     }
 
