@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
-import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ProductDTO;
+import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ProductoDato;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
 import com.backend.projectodesarrolloweb.laesquinadigital.service.IProductService;
 
@@ -38,32 +38,32 @@ public class ProductRest {
     private ModelMapper mapper;
 
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDTO createProdct(@RequestBody ProductDTO dto){
+    public ProductoDato createProdct(@RequestBody ProductoDato dto){
         Product product = mapper.map(dto, Product.class);
 
-        return  mapper.map(productService.createProduct(product), ProductDTO.class);
+        return  mapper.map(productService.createProduct(product), ProductoDato.class);
     }
 
     @isCustomerOrAdmin
     @GetMapping("{page}/{size}")
-    public Page<ProductDTO> getProducts(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<ProductoDato> getProducts(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
         Page<Product> products = productService.getProducts(pageable);
 
-        List<ProductDTO> res = new ArrayList<>(); 
+        List<ProductoDato> res = new ArrayList<>(); 
 
         for (Product product: products.getContent()){
 
-            res.add(mapper.map(product, ProductDTO.class));
+            res.add(mapper.map(product, ProductoDato.class));
             
         }
         return new PageImpl<>(res, pageable, res.size());
     }
 
     @PutMapping(value = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ProductDTO updateProduct(@RequestBody ProductDTO dto, @PathVariable Long id){
+    public ProductoDato updateProduct(@RequestBody ProductoDato dto, @PathVariable Long id){
 
         Product product = mapper.map(dto, Product.class);
 

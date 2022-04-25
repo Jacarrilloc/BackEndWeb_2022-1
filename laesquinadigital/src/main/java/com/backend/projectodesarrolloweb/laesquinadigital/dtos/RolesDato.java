@@ -1,15 +1,15 @@
 package com.backend.projectodesarrolloweb.laesquinadigital.dtos;
 
-public class RoleDTO {
+public class RolesDato {
     
     protected Long id;
 
     protected String name;
 
-    public RoleDTO() {
+    public RolesDato() {
     }
 
-    public RoleDTO(Long id, String name) {
+    public RolesDato(Long id, String name) {
         this.id = id;
         this.name = name;
     }

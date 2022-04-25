@@ -1,6 +1,6 @@
 package com.backend.projectodesarrolloweb.laesquinadigital.dtos;
 
-public class ProductDTO {
+public class ProductoDato {
 
     protected Long id;
 
@@ -12,10 +12,10 @@ public class ProductDTO {
 
     protected String image;
 
-    public ProductDTO() {
+    public ProductoDato() {
     }
 
-    public ProductDTO(Long id, String name, String description, Double price, String image) {
+    public ProductoDato(Long id, String name, String description, Double price, String image) {
         this.id = id;
         this.name = name;
         this.description = description;

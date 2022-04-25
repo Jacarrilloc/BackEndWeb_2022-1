@@ -6,7 +6,7 @@ import java.util.List;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomer;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
-import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ShoppingCartDTO;
+import com.backend.projectodesarrolloweb.laesquinadigital.dtos.CarritoCompraDato;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
 import com.backend.projectodesarrolloweb.laesquinadigital.service.IShoppingCartService;
 
@@ -40,17 +40,17 @@ public class ShoppingCartRest {
 
     @isAdmin
     @GetMapping("{page}/{size}")
-    public Page<ShoppingCartDTO> getShoppingCarts(@PathVariable("page") int pagina, @PathVariable("size") int size){
+    public Page<CarritoCompraDato> getShoppingCarts(@PathVariable("page") int pagina, @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
         Page<ShoppingCart> carts = shoppingCartService.getCarts(pageable);
 
-        List<ShoppingCartDTO> res = new ArrayList<>();
+        List<CarritoCompraDato> res = new ArrayList<>();
 
         for (ShoppingCart cart : carts.getContent()) {
 
-            res.add(mapper.map(cart, ShoppingCartDTO.class));
+            res.add(mapper.map(cart, CarritoCompraDato.class));
 
         }
         return new PageImpl<>(res, pageable,res.size());
@@ -58,17 +58,17 @@ public class ShoppingCartRest {
 
     @isCustomer
     @PostMapping(value = "create/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ShoppingCartDTO createShoppingCart(@RequestBody ShoppingCartDTO dto, @PathVariable("id") Long id){
+    public CarritoCompraDato createShoppingCart(@RequestBody CarritoCompraDato dto, @PathVariable("id") Long id){
 
         ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
-        return mapper.map(shoppingCartService.createShoppingCart(cart, id), ShoppingCartDTO.class);
+        return mapper.map(shoppingCartService.createShoppingCart(cart, id), CarritoCompraDato.class);
 
     }
 
     @isCustomerOrAdmin
     @PutMapping(value = "actulizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ShoppingCartDTO uCartDTO(@RequestBody ShoppingCartDTO dto, @PathVariable Long id){
+    public CarritoCompraDato uCartDTO(@RequestBody CarritoCompraDato dto, @PathVariable Long id){
 
         ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
@@ -85,18 +85,18 @@ public class ShoppingCartRest {
 
     @isCustomerOrAdmin
     @GetMapping("carts/per/user/{id}/{page}/{size}")
-    public Page<ShoppingCartDTO> getCartsPerUser(@PathVariable("id") Long id, @PathVariable ("page") int page,
+    public Page<CarritoCompraDato> getCartsPerUser(@PathVariable("id") Long id, @PathVariable ("page") int page,
      @PathVariable("size") int size){
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 
         Page<ShoppingCart> carts = shoppingCartService.getCartsPerUser(id, pageable);
 
-        List<ShoppingCartDTO> res = new ArrayList<>();
+        List<CarritoCompraDato> res = new ArrayList<>();
 
         for (ShoppingCart cart : carts.getContent()) {
 
-            res.add(mapper.map(cart, ShoppingCartDTO.class));
+            res.add(mapper.map(cart, CarritoCompraDato.class));
 
         }
 

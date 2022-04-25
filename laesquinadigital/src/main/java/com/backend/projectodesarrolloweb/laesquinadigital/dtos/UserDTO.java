@@ -16,18 +16,18 @@ public class UserDTO {
 
     protected String password;
 
-    protected RoleDTO rol;
+    protected RolesDato rol;
 
     // protected List<PurchaseOrderDTO> orders;
 
-    // protected List<ShoppingCartDTO> carts;
+    // protected List<CarritoCompraDato> carts;
 
 
     public UserDTO() {
     }
 
 
-    public UserDTO(String firstName, String lastName, Date birthDate, String email, String password, RoleDTO rol) {
+    public UserDTO(String firstName, String lastName, Date birthDate, String email, String password, RolesDato rol) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -85,12 +85,12 @@ public class UserDTO {
     }
 
 
-    public RoleDTO getRol() {
+    public RolesDato getRol() {
         return rol;
     }
 
 
-    public void setRol(RoleDTO rol) {
+    public void setRol(RolesDato rol) {
         this.rol = rol;
     }
 
@@ -105,12 +105,12 @@ public class UserDTO {
     // }
 
 
-    // public List<ShoppingCartDTO> getCarts() {
+    // public List<CarritoCompraDato> getCarts() {
     //     return carts;
     // }
 
 
-    // public void setCarts(List<ShoppingCartDTO> carts) {
+    // public void setCarts(List<CarritoCompraDato> carts) {
     //     this.carts = carts;
     // }
 

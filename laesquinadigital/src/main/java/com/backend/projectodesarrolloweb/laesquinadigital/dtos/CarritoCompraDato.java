@@ -2,18 +2,18 @@ package com.backend.projectodesarrolloweb.laesquinadigital.dtos;
 
 import java.util.List;
 
-public class ShoppingCartDTO {
+public class CarritoCompraDato {
     
     protected Long id;
 
     protected UserDTO user;
 
-    protected List<ProductDTO> products;
+    protected List<ProductoDato> products;
 
-    public ShoppingCartDTO() {
+    public CarritoCompraDato() {
     }
 
-    public ShoppingCartDTO(Long id, UserDTO user) {
+    public CarritoCompraDato(Long id, UserDTO user) {
         this.id = id;
         this.user = user;
     }
@@ -34,11 +34,11 @@ public class ShoppingCartDTO {
         this.user = user;
     }
 
-    public List<ProductDTO> getProducts() {
+    public List<ProductoDato> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductDTO> products) {
+    public void setProducts(List<ProductoDato> products) {
         this.products = products;
     }
 
