@@ -27,7 +27,7 @@ public class PurchaseOrder {
     protected Double finalPrice;
 
     @OneToOne
-    protected ShoppingCart cart;
+    protected CarritoCompras cart;
 
     @Column
     @Temporal(TemporalType.DATE)
@@ -37,7 +37,7 @@ public class PurchaseOrder {
     public PurchaseOrder() {
     }
 
-    public PurchaseOrder(UserSys customer, Double finalPrice, ShoppingCart cart, Date purchaseDate) {
+    public PurchaseOrder(UserSys customer, Double finalPrice, CarritoCompras cart, Date purchaseDate) {
         this.customer = customer;
         this.finalPrice = finalPrice;
         this.cart = cart;
@@ -60,11 +60,11 @@ public class PurchaseOrder {
         this.finalPrice = finalPrice;
     }
 
-    public ShoppingCart getCart() {
+    public CarritoCompras getCart() {
         return cart;
     }
 
-    public void setCart(ShoppingCart cart) {
+    public void setCart(CarritoCompras cart) {
         this.cart = cart;
     }
 

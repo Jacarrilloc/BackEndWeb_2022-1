@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ProductDTO;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
 import com.backend.projectodesarrolloweb.laesquinadigital.service.IProductService;
 
 import org.modelmapper.ModelMapper;
@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("productos")
 @isAdmin
 public class ProductRest {
 
@@ -39,9 +39,9 @@ public class ProductRest {
 
     @PostMapping(value = "create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProductDTO createProdct(@RequestBody ProductDTO dto){
-        Product product = mapper.map(dto, Product.class);
+        Producto producto = mapper.map(dto, Producto.class);
 
-        return  mapper.map(productService.createProduct(product), ProductDTO.class);
+        return  mapper.map(productService.createProduct(producto), ProductDTO.class);
     }
 
     @isCustomerOrAdmin
@@ -50,13 +50,13 @@ public class ProductRest {
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<Product> products = productService.getProducts(pageable);
+        Page<Producto> productos = productService.getProducts(pageable);
 
         List<ProductDTO> res = new ArrayList<>(); 
 
-        for (Product product: products.getContent()){
+        for (Producto producto: productos.getContent()){
 
-            res.add(mapper.map(product, ProductDTO.class));
+            res.add(mapper.map(producto, ProductDTO.class));
             
         }
         return new PageImpl<>(res, pageable, res.size());
@@ -65,9 +65,9 @@ public class ProductRest {
     @PutMapping(value = "update/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ProductDTO updateProduct(@RequestBody ProductDTO dto, @PathVariable Long id){
 
-        Product product = mapper.map(dto, Product.class);
+        Producto producto = mapper.map(dto, Producto.class);
 
-        productService.updateProduct(product, id);
+        productService.updateProduct(producto, id);
 
         return dto;
     }

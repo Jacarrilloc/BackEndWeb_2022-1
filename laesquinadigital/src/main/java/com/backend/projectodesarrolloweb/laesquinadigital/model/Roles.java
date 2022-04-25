@@ -12,7 +12,7 @@ import javax.persistence.OneToMany;
 
 
 @Entity
-public class Role {
+public class Roles {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -11,7 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class ShoppingCart {
+public class CarritoCompras {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,17 +21,17 @@ public class ShoppingCart {
     protected UserSys user;
 
     // @OneToMany(fetch = FetchType.EAGER)
-    // protected List<Product> products;
+    // protected List<Producto> productos;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    protected List<Product> products;
+    protected List<Producto> productos;
 
-    public ShoppingCart() {
+    public CarritoCompras() {
     }
 
-    public ShoppingCart(UserSys user, List<Product> products) {
+    public CarritoCompras(UserSys user, List<Producto> productos) {
         this.user = user;
-        this.products = products;
+        this.productos = productos;
     }
 
     public UserSys getUser() {
@@ -42,12 +42,12 @@ public class ShoppingCart {
         this.user = user;
     }
 
-    public List<Product> getProducts() {
-        return products;
+    public List<Producto> getProducts() {
+        return productos;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setProducts(List<Producto> productos) {
+        this.productos = productos;
     }
 
     public Long getId() {

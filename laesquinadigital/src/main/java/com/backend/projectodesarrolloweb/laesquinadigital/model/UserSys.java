@@ -41,20 +41,20 @@ public class UserSys {
     protected String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    protected Role rol;
+    protected Roles rol;
 
     @OneToMany(mappedBy = "customer")
     protected List<PurchaseOrder> orders;
 
     @OneToMany(mappedBy = "user")
-    protected List<ShoppingCart> carts;
+    protected List<CarritoCompras> carts;
 
     
     public UserSys() {
     }
 
     public UserSys(String firstName, String lastName, Date birthDate, @Email String email, String password,
-            List<PurchaseOrder> orders, List<ShoppingCart> carts, Role rol) {
+            List<PurchaseOrder> orders, List<CarritoCompras> carts, Roles rol) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
@@ -114,11 +114,11 @@ public class UserSys {
         this.orders = orders;
     }
 
-    public List<ShoppingCart> getCarts() {
+    public List<CarritoCompras> getCarts() {
         return carts;
     }
 
-    public void setCarts(List<ShoppingCart> carts) {
+    public void setCarts(List<CarritoCompras> carts) {
         this.carts = carts;
     }
 
@@ -130,11 +130,11 @@ public class UserSys {
         this.id = id;
     }
 
-    public Role getRol() {
+    public Roles getRol() {
         return rol;
     }
 
-    public void setRol(Role rol) {
+    public void setRol(Roles rol) {
         this.rol = rol;
     }
 
