@@ -2,7 +2,7 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompras;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
 import com.backend.projectodesarrolloweb.laesquinadigital.repository.ShoppingCartRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.repository.UserRepository;
@@ -24,7 +24,7 @@ public class ShoppingCartService implements IShoppingCartService {
 
     @Override
     public void deleteShoppingCart(Long id) {
-        Optional<CarritoCompras> user = repository.findById(id);
+        Optional<ShoppingCart> user = repository.findById(id);
         
         if(user.isPresent()){
             repository.delete(user.get());
@@ -34,7 +34,7 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public CarritoCompras updateShoppingCart(CarritoCompras cart, Long id) {
+    public ShoppingCart updateShoppingCart(ShoppingCart cart, Long id) {
         return repository.findById(id).map(provider ->{
 
             provider.setProducts(cart.getProducts());;
@@ -46,27 +46,27 @@ public class ShoppingCartService implements IShoppingCartService {
     }
 
     @Override
-    public CarritoCompras getShoppingCartById(Long id) {
+    public ShoppingCart getShoppingCartById(Long id) {
         return repository.findById(id).orElseThrow(()-> new ShoppingCartNotFoundException(id));
     }
 
     @Override
-    public CarritoCompras createShoppingCart(CarritoCompras carritoCompras, Long id) {
+    public ShoppingCart createShoppingCart(ShoppingCart shoppingCart, Long id) {
         
-        CarritoCompras cart = new CarritoCompras();
+        ShoppingCart cart = new ShoppingCart();
         cart.setUser(uRepository.getById(id));
-        cart.setProducts(carritoCompras.getProducts());
+        cart.setProducts(shoppingCart.getProducts());
 
         return repository.save(cart);
     }
 
     @Override
-    public Page<CarritoCompras> getCarts(Pageable pageable) {
+    public Page<ShoppingCart> getCarts(Pageable pageable) {
         return repository.findAll(pageable);
     }
 
     @Override
-    public Page<CarritoCompras> getCartsPerUser(Long id, Pageable pageable){
+    public Page<ShoppingCart> getCartsPerUser(Long id, Pageable pageable){
 
         UserSys user = uRepository.getById(id);
 

@@ -2,7 +2,7 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
 import com.backend.projectodesarrolloweb.laesquinadigital.repository.ProductRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.util.ProductNotFoundException;
 
@@ -20,10 +20,10 @@ public class ProductService implements IProductService {
     @Override
     public void deleteProduct(Long id) {
     
-        Optional<Producto> producto = repository.findById(id);
+        Optional<Product> product = repository.findById(id);
         
-        if(producto.isPresent()){
-            repository.delete(producto.get());
+        if(product.isPresent()){
+            repository.delete(product.get());
         } else{
             throw new ProductNotFoundException(id);
         }  
@@ -31,14 +31,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Producto updateProduct(Producto producto, Long id) {
+    public Product updateProduct(Product product, Long id) {
     
         return repository.findById(id).map(provider ->{
 
-            provider.setName(producto.getName());
-            provider.setDescription(producto.getDescription());
-            provider.setImage(producto.getImage());
-            provider.setPrice(producto.getPrice());
+            provider.setName(product.getName());
+            provider.setDescription(product.getDescription());
+            provider.setImage(product.getImage());
+            provider.setPrice(product.getPrice());
 
             return repository.save(provider);
 
@@ -49,21 +49,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Producto getProductById(Long id) {
+    public Product getProductById(Long id) {
 
         return repository.findById(id).orElseThrow(()-> new ProductNotFoundException(id));
     
     }
 
     @Override
-    public Producto createProduct(Producto producto) {
+    public Product createProduct(Product product) {
         
-        return repository.save(producto);
+        return repository.save(product);
 
     }
 
     @Override
-    public Page<Producto> getProducts(Pageable pageable) {
+    public Page<Product> getProducts(Pageable pageable) {
 
         return repository.findAll(pageable);
     

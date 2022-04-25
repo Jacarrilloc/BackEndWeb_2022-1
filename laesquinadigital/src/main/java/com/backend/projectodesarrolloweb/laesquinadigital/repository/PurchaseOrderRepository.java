@@ -4,7 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.backend.projectodesarrolloweb.laesquinadigital.model.PurchaseOrder;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompras;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
 
 import org.springframework.data.domain.Page;
@@ -17,7 +17,7 @@ public interface PurchaseOrderRepository extends JpaRepository<PurchaseOrder, Lo
 
     Optional<PurchaseOrder> findById(Long id);
 
-    Optional<PurchaseOrder> findByCart(CarritoCompras cart);
+    Optional<PurchaseOrder> findByCart(ShoppingCart cart);
 
     Page<PurchaseOrder> findByPurchaseDate(Date purchaseDate, Pageable pageable);
 

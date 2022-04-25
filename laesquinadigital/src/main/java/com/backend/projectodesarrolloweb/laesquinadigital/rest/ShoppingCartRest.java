@@ -7,7 +7,7 @@ import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomer;
 import com.backend.projectodesarrolloweb.laesquinadigital.anotations.isCustomerOrAdmin;
 import com.backend.projectodesarrolloweb.laesquinadigital.dtos.ShoppingCartDTO;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompras;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
 import com.backend.projectodesarrolloweb.laesquinadigital.service.IShoppingCartService;
 
 import org.modelmapper.ModelMapper;
@@ -44,11 +44,11 @@ public class ShoppingCartRest {
 
         Pageable pageable = PageRequest.of(pagina, size, Sort.by("id"));
 
-        Page<CarritoCompras> carts = shoppingCartService.getCarts(pageable);
+        Page<ShoppingCart> carts = shoppingCartService.getCarts(pageable);
 
         List<ShoppingCartDTO> res = new ArrayList<>();
 
-        for (CarritoCompras cart : carts.getContent()) {
+        for (ShoppingCart cart : carts.getContent()) {
 
             res.add(mapper.map(cart, ShoppingCartDTO.class));
 
@@ -60,7 +60,7 @@ public class ShoppingCartRest {
     @PostMapping(value = "create/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ShoppingCartDTO createShoppingCart(@RequestBody ShoppingCartDTO dto, @PathVariable("id") Long id){
 
-        CarritoCompras cart = mapper.map(dto, CarritoCompras.class);
+        ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
         return mapper.map(shoppingCartService.createShoppingCart(cart, id), ShoppingCartDTO.class);
 
@@ -70,7 +70,7 @@ public class ShoppingCartRest {
     @PutMapping(value = "actulizar/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ShoppingCartDTO uCartDTO(@RequestBody ShoppingCartDTO dto, @PathVariable Long id){
 
-        CarritoCompras cart = mapper.map(dto, CarritoCompras.class);
+        ShoppingCart cart = mapper.map(dto, ShoppingCart.class);
 
         shoppingCartService.updateShoppingCart(cart, id);
 
@@ -90,11 +90,11 @@ public class ShoppingCartRest {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("id"));
 
-        Page<CarritoCompras> carts = shoppingCartService.getCartsPerUser(id, pageable);
+        Page<ShoppingCart> carts = shoppingCartService.getCartsPerUser(id, pageable);
 
         List<ShoppingCartDTO> res = new ArrayList<>();
 
-        for (CarritoCompras cart : carts.getContent()) {
+        for (ShoppingCart cart : carts.getContent()) {
 
             res.add(mapper.map(cart, ShoppingCartDTO.class));
 

@@ -1,6 +1,6 @@
 package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,12 +9,12 @@ public interface IProductService {
 
     void deleteProduct(Long id);
 
-    Producto updateProduct(Producto producto, Long id);
+    Product updateProduct(Product product, Long id);
 
-    Producto getProductById(Long  id);
+    Product getProductById(Long  id);
 
-    Producto createProduct(Producto producto);
+    Product createProduct(Product product);
     
-    Page<Producto> getProducts(Pageable pageable);
+    Page<Product> getProducts(Pageable pageable);
     
 }

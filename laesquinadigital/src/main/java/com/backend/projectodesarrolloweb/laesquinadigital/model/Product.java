@@ -8,7 +8,7 @@ import javax.persistence.Id;
 
 
 @Entity
-public class Producto {
+public class Product {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,10 +26,10 @@ public class Producto {
     @Column
     protected String image;
 
-    public Producto() {
+    public Product() {
     }
 
-    public Producto(String name, String description, Double price, String image) {
+    public Product(String name, String description, Double price, String image) {
         this.name = name;
         this.description = description;
         this.price = price;

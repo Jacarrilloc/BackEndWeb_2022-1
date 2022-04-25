@@ -2,9 +2,9 @@ package com.backend.projectodesarrolloweb.laesquinadigital.service;
 
 import java.util.Optional;
 
-import com.backend.projectodesarrolloweb.laesquinadigital.model.Producto;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.Product;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.PurchaseOrder;
-import com.backend.projectodesarrolloweb.laesquinadigital.model.CarritoCompras;
+import com.backend.projectodesarrolloweb.laesquinadigital.model.ShoppingCart;
 import com.backend.projectodesarrolloweb.laesquinadigital.model.UserSys;
 import com.backend.projectodesarrolloweb.laesquinadigital.repository.PurchaseOrderRepository;
 import com.backend.projectodesarrolloweb.laesquinadigital.repository.UserRepository;
@@ -77,11 +77,11 @@ public class PurchaseOrderService implements IPurchaseOrderService {
     }
     
 
-    public Double calcFinalPrice(CarritoCompras carritoCompras){
+    public Double calcFinalPrice(ShoppingCart shoppingCart){
         
         Double finalprice = 0d;
 
-        for(Producto p: carritoCompras.getProducts()){
+        for(Product p: shoppingCart.getProducts()){
             finalprice+=p.getPrice();
         }
 
